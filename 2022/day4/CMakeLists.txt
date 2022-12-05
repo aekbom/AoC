@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.10)
+project(advent_of_code_4)
+set(CMAKE_CXX_STANDARD 17)
+add_executable(assignment_4_1 main1.cpp)
+add_compile_options(-Wall -Wextra -pedantic -Werror -O3)
+#add_executable(assignment_4_2 main2.cpp)

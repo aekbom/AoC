@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.10)
+project(advent_of_code_2)
+set(CMAKE_CXX_STANDARD 17)
+add_executable(assignment_2_1 main1.cpp)
+add_executable(assignment_2_2 main2.cpp)
