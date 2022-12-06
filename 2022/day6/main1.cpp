@@ -5,7 +5,7 @@
 
 
 int main(int argc, char* argv[]) {       
-    const uint32_t cLookAhead = 4;
+    const uint32_t cLookAhead = 4; // 4 for solution 1, 14 for solution 2.
     std::ifstream inFile("./data.txt");
     std::string data;
         
