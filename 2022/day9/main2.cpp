@@ -27,7 +27,7 @@ inline vector tailMove(const point& head, const point& tail) {
 }
 
 void performSteps(vector dir, int count, std::set<point>& visited) {
-    static std::vector<point> rope{{0,0}, {0,0}, {0,0}, {0,0}, {0,0}, {0,0}, {0,0}, {0,0}, {0,0}, {0,0}};
+    static std::vector<point> rope(10, {0,0});
     
     for (int i=0; i<count; ++i) {
         auto head = begin(rope);
@@ -56,4 +56,3 @@ int main(int argc, char* argv[]) {
     }
     return 0;
 } 
-    
