@@ -6,7 +6,7 @@
 #include <unordered_set>
 #include <set>
 
-typedef std::pair<short, short> point;
+typedef std::pair<long unsigned int, long unsigned int> point;
 
 class Node;
 
@@ -43,7 +43,7 @@ int main(int argc, char* argv[]) {
     std::ifstream inFile("./data.txt");
     auto cmp = [](Node* left, Node* right) { return left->score < right->score; };     
     short lineCnt{0};
-    constexpr bool firstPuzzle = true;
+    constexpr bool firstPuzzle = false;
     Node* endNode = nullptr;
     if (inFile.is_open()) {
         // Parsing input.                                
@@ -56,8 +56,7 @@ int main(int argc, char* argv[]) {
                 if (*it == 'S') {
                     n->score = firstPuzzle ? 0 : std::numeric_limits<uint32_t>::max();
                     n->c = firstPuzzle ? 'a' : 'z';
-                    if (!firstPuzzle) endNode = n;
-                    else prio.insert(n);
+                    if (firstPuzzle) prio.insert(n);                    
                 } else if (*it == 'E') {
                     n->score = firstPuzzle ? std::numeric_limits<uint32_t>::max() : 0;
                     n->c = firstPuzzle ? 'z' : 'a';                                        
@@ -79,27 +78,14 @@ int main(int argc, char* argv[]) {
             if ((*it)->score == std::numeric_limits<uint32_t>::max()) break;            
             if (unvisited.find(*it) != unvisited.end()) {                                     
                 (*it)->evaluateNeighborScores();
+                if (firstPuzzle) if (endNode == *it) break;
+                if (!firstPuzzle) if ((*it)->c == 'z') { endNode = (*it); break; }
                 unvisited.erase(*it);
                 prio.erase(it);                
             }
         }
         
-        if (firstPuzzle) endNode->print();
-
-        // Finding best node to start from and cleaning up.
-        endNode = nullptr;
-        uint32_t lowestScore = std::numeric_limits<uint32_t>::max();  
-        for (auto v : nodes) {
-            for (auto n : v) {
-                if (n->c == 'z' and n->score < lowestScore) {
-                    lowestScore = n->score;
-                    if (endNode) delete endNode;
-                    endNode = n;                    
-                } else delete n;
-            }
-        }
-
-        if (!firstPuzzle) endNode->print();
+        endNode->print();
     }
     return 0;
 } 
